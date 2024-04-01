@@ -6,12 +6,14 @@ import State from './components/State';
 import PizzaTranslator from './components/PizzaTranslator';
 import SectionListBasic from './components/SectionLIstBasic';
 import FlatListBasic from './components/FlatListBasic';
+import Count from './components/Count';
 
 const logo = { uri: 'https://reactnative.dev/img/tiny_logo.png', width: 32, height: 32, };
 
 export default function App() {
     return (
         <ScrollView style={{paddingTop: 24, paddingLeft: 2}}>
+            <Count />
             <Image source={logo} />
             <SectionListBasic />
             <Image source={logo} />

@@ -5,7 +5,7 @@ export default function FetchExample() {
     const [isLoading, setLoading] = useState(true);
     const [data, setData] = useState([]);
     useEffect(() => {
-        fetch('https://reactnative.dev/movies.json')
+        fetch('https://reactnative.dev/movies.json') 
             .then(res => res.json())
             .then(obj => {
                 console.log(obj);       // {title, releaseYear}
