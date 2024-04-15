@@ -1,29 +1,33 @@
 import React, { useEffect, useState } from "react";
-import { View, StyleSheet, FlatList, Text } from "react-native";
+import { View, FlatList, Text, ActivityIndicator } from "react-native";
 
 export default function FetchExample() {
-    const [isLoading, setLoading] = useState(true);
-    const [data, setData] = useState([]);
-    useEffect(() => {
-        fetch('https://reactnative.dev/movies.json') 
-            .then(res => res.json())
-            .then(obj => {
-                console.log(obj);       // {title, releaseYear}
-                setData(obj.movies);
-            })
-            .catch(error => {console.error(error);})
-            .finally(setLoading(false));
-    }, []);
+  const [isLoading, setLoading] = useState(true);
+  const [data, setData] = useState([]);
+  useEffect(() => {
+    fetch('https://reactnative.dev/movies.json')
+      .then(res => res.json())
+      .then(obj => {
+//      console.log(obj);   // {title, releaseYear}, Postman으로 확인할 것
+        setData(obj.movies);
+      })
+      .catch(error => {console.error(error);})
+      .finally(setLoading(false));
+  }, []);
 
-    return (
-        <View style={styles.container}>
-            <Text style={{ fontSize: 40, padding: 15, fontWeight: 20 }}>내가 좋아하는 과일</Text>
-            <FlatList
-                data={[
-                    { key: 'Apple' }, { key: 'Banana' }, { key: 'Cherry' }, { key: 'Orange' }, { key: 'Mango' },
-                ]}
-                renderItem={({ item }) => <Text style={styles.item}>{item.key}</Text>}
-            />
-        </View>
-    );
+  return (
+    <View style={{flex:1, padding:10}}>
+      {isLoading ? (
+        <ActivityIndicator />
+      ) : (
+        <FlatList 
+          data={data}
+          keyExtractor={({id}) => id}
+          renderItem={({item}) => (
+            <Text>{item.title}, {item.releaseYear}</Text>
+          )}
+        />
+      )}
+    </View>
+  );
 }
